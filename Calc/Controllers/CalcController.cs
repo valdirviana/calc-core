@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Calc.Core;
 using Calc.Core.Validators;
@@ -23,7 +25,8 @@ namespace Calc.Controllers
         }
 
         [HttpGet]
-        public ActionResult<double> Get([FromQuery]string valorinicial, [FromQuery]string meses)
+        [Produces("text/plain")]
+        public IActionResult Get([FromQuery]string valorinicial, [FromQuery]string meses)
         {
             var validatedFields = _compoundInterestCalculatorValidator.Validate(valorinicial, meses);
 

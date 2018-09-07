@@ -9,14 +9,8 @@ namespace Calc.Core
         public double Calculate(double amount, int period)
         {
             var finalAmount = amount * Math.Pow(1 + 0.01, period);
-            var truncatedAmount = TruncateAmount(finalAmount);
 
-            return truncatedAmount;
-        }
-
-        private double TruncateAmount(double amount)
-        {
-            return Math.Floor(amount * 100) / 100;
+            return finalAmount;
         }
     }
 }

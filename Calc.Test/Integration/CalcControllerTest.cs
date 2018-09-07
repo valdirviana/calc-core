@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
@@ -24,16 +26,26 @@ namespace Calc.Test.Integration
             _server.Dispose();
         }
 
-        [Fact]
-        public async Task Index_Get_ReturnsIndexHtmlPage()
+        [Theory]
+        [InlineData("100", "5", "105.1")]
+        [InlineData("234", "5", "245.93")]
+        [InlineData("985,96", "2", "1005.77")]
+        [InlineData("15", "1", "15.15")]
+        [InlineData("1", "25", "1.28")]
+        [InlineData("1256,6942", "75", "2650.52")]
+        [InlineData("75,123654", "360", "2700.66")]
+        [InlineData("423,36", "21", "521.74")]
+        [InlineData("154,6", "33", "214.69")]
+        public async Task calculajuros_Get_Returns_compoundInterest(string amount, string period, string finalAmount)
         {
-            // Act
-            var response = await _client.GetAsync("/calculajuros?valorinicial=123,25&meses=2");
+            var response = await _client.GetAsync($"/calculajuros?valorinicial={amount}&meses={period}");
 
-            // Assert
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
-            Assert.Contains("<title>Home Page - BlogPlayground</title>", responseString);
+            responseString.Should().Be(finalAmount);
+
+            var statusCode = response.StatusCode;
+            statusCode.Should().Be(HttpStatusCode.OK);
 
             Dispose();
         }

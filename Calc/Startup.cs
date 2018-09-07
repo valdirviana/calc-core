@@ -35,7 +35,6 @@ namespace Calc
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-
             services.AddScoped<ICompoundInterestCalculator, CompoundInterestCalculator>();
             services.AddScoped<ICompoundInterestCalculatorValidator, CompoundInterestCalculatorValidator>();
 
