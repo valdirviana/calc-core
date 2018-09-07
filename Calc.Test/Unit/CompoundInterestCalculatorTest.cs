@@ -1,8 +1,5 @@
 ﻿using Calc.Core;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Calc.Test.Unit
@@ -26,6 +23,7 @@ namespace Calc.Test.Unit
         [InlineData(75.123654, 360, 2700.6684165251113)]
         [InlineData(423.36, 21, 521.745451865495)]
         [InlineData(154.6, 33, 214.69148718991673)]
+        [InlineData(100.64548951525, 20, 122.8066238721956)]
         public void ShouldCalculateAndReturnTruncateValue(double amount, int period, double finalAmount)
         {
             var result = _compoundInterestCalculator.Calculate(amount, period);

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Calc.Core;
+using Calc.Core.Formatter;
 using Calc.Core.Validators;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Calc.Controllers
@@ -25,15 +20,18 @@ namespace Calc.Controllers
         }
 
         [HttpGet]
-        [Produces("text/plain")]
         public IActionResult Get([FromQuery]string valorinicial, [FromQuery]string meses)
         {
             var validatedFields = _compoundInterestCalculatorValidator.Validate(valorinicial, meses);
 
-            if (validatedFields.Item1)           
-                return Ok(_compoundInterestCalculator.Calculate(Convert.ToDouble(valorinicial), Convert.ToInt32(meses)));         
-            else         
+            if (validatedFields.Item1)
+            {
+                var retorno = _compoundInterestCalculator.Calculate(Convert.ToDouble(valorinicial), Convert.ToInt32(meses));
+                return Ok(retorno.FormatReturn());
+            }
+            else
                 return BadRequest(validatedFields.Item2);           
         }
+
     }
 }
