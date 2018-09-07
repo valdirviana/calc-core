@@ -3,6 +3,7 @@ using Calc.Core;
 using Calc.Core.Formatter;
 using Calc.Core.Validators;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Calc.Controllers
 {
@@ -12,11 +13,15 @@ namespace Calc.Controllers
     {
         private readonly ICompoundInterestCalculator _compoundInterestCalculator;
         private readonly ICompoundInterestCalculatorValidator _compoundInterestCalculatorValidator;
+        private readonly ILogger _logger;
 
-        public CalcController(ICompoundInterestCalculator compoundInterestCalculator, ICompoundInterestCalculatorValidator compoundInterestCalculatorValidator)
+        public CalcController(ICompoundInterestCalculator compoundInterestCalculator, 
+            ICompoundInterestCalculatorValidator compoundInterestCalculatorValidator,
+             ILogger<CalcController> logger)
         {
             _compoundInterestCalculator = compoundInterestCalculator;
             _compoundInterestCalculatorValidator = compoundInterestCalculatorValidator;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -33,5 +38,9 @@ namespace Calc.Controllers
                 return BadRequest(validatedFields.Item2);           
         }
 
+
+        [HttpGet]
+        [Route("showmethecode")]
+        public IActionResult GetShowMeTheCode() => Redirect("https://github.com/valdirviana/calc-core");
     }
 }

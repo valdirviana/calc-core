@@ -23,6 +23,7 @@ namespace Calc.Core.Validators
             {
                 isValid = false;
                 validateMessages.Add("Amount is invalid");
+                return;
             }
 
             if (!double.TryParse(amount, out double convert))
@@ -50,6 +51,7 @@ namespace Calc.Core.Validators
             {
                 isValid = false;
                 validateMessages.Add("Period is null or empty");
+                return;
             }
 
             if(!int.TryParse(period,out int convert))
