@@ -13,6 +13,3 @@ http://compoundinterestcalculator.us-east-2.elasticbeanstalk.com/calculajuros/sh
 Swagger API
 
 http://compoundinterestcalculator.us-east-2.elasticbeanstalk.com/swagger
-
-
-[link](url){:target="_blank"}
