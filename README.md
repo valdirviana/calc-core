@@ -17,4 +17,7 @@ http://compoundinterestcalculator.us-east-2.elasticbeanstalk.com/swagger
 ## Run
 
 ```dotnet run --project Calc```
+
 ```dotnet test .\Calc.Test\Calc.Test.csproj```
+
+### Hosted in AWS Elastic Beanstalk 
